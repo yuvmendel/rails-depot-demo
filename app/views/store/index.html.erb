@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 <h1>Your Pragmatic Catalog</h1>
+<h2>
+  <% if session[:counter] > 5 %>
+  <%= session[:counter] %>
+  <% end %>
+</h2>
 
 <% cache @products do %>
   <% @products.each do |product| %>
@@ -10,6 +15,7 @@
         <%= sanitize(product.description) %>
         <div class="price_line">
           <span class="price"><%= number_to_currency(product.price, precision: 5, strip_insignificant_zeros: false) %></span>
+          <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
         </div>
       </div>
     <% end %>
